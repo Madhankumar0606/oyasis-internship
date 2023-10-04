@@ -1,0 +1,45 @@
+class Question {
+    private String questionText;
+    private List<String> options;
+    private int correctOption;
+
+    public Question(String questionText, List<String> options, int correctOption) {
+        this.questionText = questionText;
+        this.options = options;
+        this.correctOption = correctOption;
+    }
+}
+
+public class QuizManager {
+    private List<Question> questions;
+    private int totalMarks;
+
+    public QuizManager(List<Question> questions) {
+        this.questions = questions;
+        this.totalMarks = questions.size();
+    }
+
+    public int startQuiz() {
+        int score = 0;
+        Scanner scanner = new Scanner(System.in);
+
+        for (Question question : questions) {
+            System.out.println("Question: " + question.getQuestionText());
+            for (int i = 0; i < question.getOptions().size(); i++) {
+                System.out.println((i + 1) + ". " + question.getOptions().get(i));
+            }
+
+            System.out.print("Enter your answer (1-" + question.getOptions().size() + "): ");
+            int userAnswer = scanner.nextInt();
+
+            if (userAnswer == question.getCorrectOption()) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Incorrect. The correct answer is option " + question.getCorrectOption() + ".");
+            }
+        }
+
+        return score;
+    }
+}
